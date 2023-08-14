@@ -1,12 +1,14 @@
 package com.tn.universite_de_sousse_backend.controllers;
 
 
-import com.tn.universite_de_sousse_backend.entities.Acttableau;
+import com.tn.universite_de_sousse_backend.Interfaces.EmailService;
+import com.tn.universite_de_sousse_backend.Interfaces.IactuaalitesService;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
+import com.tn.universite_de_sousse_backend.entities.NewsLetter;
 import com.tn.universite_de_sousse_backend.services.ActualitesService;
+import com.tn.universite_de_sousse_backend.entities.EmailDetails;
 import com.tn.universite_de_sousse_backend.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -20,13 +22,22 @@ import java.util.List;
 public class ActualitesRestController {
 
     @Autowired
-    private ActualitesService actSRV;
+    private IactuaalitesService actSRV;
+   // private ActualitesService actSRV;
     @Autowired
     public ImageService imageService;
+
+
+
 
     @PostMapping("addAct")
     public Actualite addAct(@RequestBody Actualite actualite) {
         return actSRV.addActualite(actualite);
+    }
+
+    @PostMapping("addEmail")
+    public NewsLetter addEmail(@RequestBody NewsLetter newsLetter) {
+        return actSRV.addNewsLetter(newsLetter);
     }
 
 
@@ -96,6 +107,8 @@ public class ActualitesRestController {
                                             @RequestParam(value = "size", defaultValue = "6") int size) {
         return actSRV.searchActualites(keyword, page, size);
     }
+
+
 
 
 

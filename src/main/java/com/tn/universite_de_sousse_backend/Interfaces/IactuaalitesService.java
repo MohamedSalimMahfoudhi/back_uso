@@ -3,6 +3,7 @@ package com.tn.universite_de_sousse_backend.Interfaces;
 
 import com.tn.universite_de_sousse_backend.entities.Acttableau;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
+import com.tn.universite_de_sousse_backend.entities.NewsLetter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ public interface IactuaalitesService {
 
 
     Actualite addActualite(Actualite actualite);
+    NewsLetter addNewsLetter(NewsLetter newsLetter);
 
     Actualite updateActualite(Actualite actualite);
 
@@ -33,5 +35,5 @@ public interface IactuaalitesService {
 
     Page<Actualite> searchActualites(String keyword, int page, int size);
 
-
+    String getAlphaNumericString(int n);
 }

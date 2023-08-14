@@ -1,15 +1,21 @@
 package com.tn.universite_de_sousse_backend.services;
 
 
+import com.tn.universite_de_sousse_backend.Interfaces.EmailService;
 import com.tn.universite_de_sousse_backend.Interfaces.IactuaalitesService;
 import com.tn.universite_de_sousse_backend.entities.Acttableau;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
+import com.tn.universite_de_sousse_backend.entities.EmailDetails;
+import com.tn.universite_de_sousse_backend.entities.NewsLetter;
 import com.tn.universite_de_sousse_backend.repository.ActualitesRepository;
+import com.tn.universite_de_sousse_backend.repository.NewsLetterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -21,9 +27,30 @@ public class ActualitesService implements IactuaalitesService {
     @Autowired // ou @inject
     ActualitesRepository actR;
 
+    @Autowired // ou @inject
+    NewsLetterRepository newsLR;
+    @Autowired
+    private EmailService emailService;
+
+
     @Override
     public Actualite addActualite(Actualite actualite) {
+        List<NewsLetter> newsLetters =newsLR.findAll();
+
+
+        for (NewsLetter email : newsLetters)
+        {
+            EmailDetails emailDetails = new EmailDetails(email.getEmail(),actualite.getTitreAct(),actualite.getSujetAct(),actualite.getTitreAct());
+            emailService.sendSimpleMail(emailDetails);
+        }
+
+
         return actR.save(actualite);
+    }
+
+    @Override
+    public NewsLetter addNewsLetter(NewsLetter newsLetter) {
+        return newsLR.save(newsLetter);
     }
 
     @Override
@@ -73,8 +100,8 @@ public class ActualitesService implements IactuaalitesService {
         return actR.findByTitreContainingIgnoreCase(keyword,pageable);
     }
 
-
-    public static String getAlphaNumericString(int n)
+    @Override
+    public  String getAlphaNumericString(int n)
     {
         byte[] array = new byte[256];
         new Random().nextBytes(array);

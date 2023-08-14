@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class ImageService {
 
-    public final String storageDirectoryPath ="E:\\stage\\package\\src\\assets\\uploads";
+    public final String storageDirectoryPath ="E:\\stage\\Git\\front_uso\\src\\assets\\uploads";
   //  public final String storageDirectoryPath ="http://localhost:4200\\assets\\uploads";
     public ResponseEntity<String> uploadToLocalFileSystem(MultipartFile file,String nameImage) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
