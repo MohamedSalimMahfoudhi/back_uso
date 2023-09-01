@@ -106,7 +106,7 @@ public class ActualitesRestController {
         return this.imageService.uploadToLocalFileSystem(file, namePdf);
     }
 
-   
+
 
     @GetMapping("findTop3Act")
     List<Actualite> findTop3ActualitesSortedByUpdatedAt() {

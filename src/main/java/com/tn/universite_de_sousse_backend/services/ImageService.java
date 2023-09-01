@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class ImageService {
 
-    public final String storageDirectoryPath ="E:\\stage\\Git\\front_uso\\src\\assets\\uploads";
+    public final String storageDirectoryPath ="E:\\stage\\Git\\front_uso\\src\\assets\\uploads\\";
   //  public final String storageDirectoryPath ="http://localhost:4200\\assets\\uploads";
     public ResponseEntity<String> uploadToLocalFileSystem(MultipartFile file,String nameImage) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -29,8 +29,7 @@ public class ImageService {
             }
         }
 
-        Path destination = Paths.get(storageDirectory.toString() +nameImage);
-
+        Path destination = Paths.get(storageDirectory.toString()+"\\" +nameImage);
 
         try {
             Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);// we are Copying all bytes from an input stream to a file
