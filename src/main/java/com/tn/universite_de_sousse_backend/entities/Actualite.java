@@ -29,18 +29,26 @@ public class Actualite implements Serializable {
     private String sujetAct;
 
     @Column(name="image_act")
-    private String imageAct;
+    private String imageAct="default.jpg";
 
 
     @Column(name="type_act")
     private String typeAct;
+    @Column(name="pdf1_act")
+    private String pdf1;
+    @Column(name="pdf2_act")
+    private String pdf2;
+    @Column(name="pdf3_act")
+    private String pdf3;
+    @Column(name="pdf4_act")
+    private String pdf4;
 
 
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date created;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updatedAt;
 

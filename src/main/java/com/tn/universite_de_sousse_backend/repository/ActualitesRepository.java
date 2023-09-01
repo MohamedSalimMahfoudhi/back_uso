@@ -21,6 +21,10 @@ public interface ActualitesRepository extends JpaRepository<Actualite,Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM Actualite ORDER BY updated_at DESC LIMIT 3")
     List<Actualite> findTop3ActualitesSortedByUpdatedAt();
 
+    @Query(nativeQuery = true, value = "SELECT * FROM Actualite ORDER BY updated_at DESC LIMIT 1")
+    Actualite lastAct();
+
+
     @Query("SELECT a FROM Actualite a WHERE UPPER(a.titreAct) LIKE UPPER(CONCAT('%', ?1, '%'))")
     Page<Actualite> findByTitreContainingIgnoreCase(String titreAct, Pageable pageable);
 

@@ -35,15 +35,13 @@ public class ActualitesService implements IactuaalitesService {
 
     @Override
     public Actualite addActualite(Actualite actualite) {
-        List<NewsLetter> newsLetters =newsLR.findAll();
-
-
+     /*   List<NewsLetter> newsLetters =newsLR.findAll();
         for (NewsLetter email : newsLetters)
         {
             EmailDetails emailDetails = new EmailDetails(email.getEmail(),actualite.getTitreAct(),actualite.getSujetAct(),actualite.getTitreAct());
             emailService.sendSimpleMail(emailDetails);
         }
-
+*/
 
         return actR.save(actualite);
     }
@@ -77,6 +75,12 @@ public class ActualitesService implements IactuaalitesService {
     public Actualite actualitefindByTitreAct(String titreAct) {
         return actR.findByTitreAct(titreAct);
     }
+
+    @Override
+    public Actualite actualitefindLastAct() {
+        return actR.lastAct();
+    }
+
 
     @Override
     public List<Actualite> findTop3ActualitesSortedByUpdatedAt() {

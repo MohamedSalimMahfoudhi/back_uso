@@ -28,6 +28,8 @@ public interface IactuaalitesService {
 
     Actualite actualitefindByTitreAct(String titreAct);
 
+    Actualite actualitefindLastAct();
+
     List<Actualite> findTop3ActualitesSortedByUpdatedAt();
    // List<Actualite> findActualitesByTitreAct(String titreAct);
 

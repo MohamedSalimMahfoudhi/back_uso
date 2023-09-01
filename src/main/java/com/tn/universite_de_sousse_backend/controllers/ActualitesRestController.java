@@ -1,12 +1,10 @@
 package com.tn.universite_de_sousse_backend.controllers;
 
 
-import com.tn.universite_de_sousse_backend.Interfaces.EmailService;
 import com.tn.universite_de_sousse_backend.Interfaces.IactuaalitesService;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
 import com.tn.universite_de_sousse_backend.entities.NewsLetter;
-import com.tn.universite_de_sousse_backend.services.ActualitesService;
-import com.tn.universite_de_sousse_backend.entities.EmailDetails;
+import com.tn.universite_de_sousse_backend.repository.ActualitesRepository;
 import com.tn.universite_de_sousse_backend.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +24,8 @@ public class ActualitesRestController {
    // private ActualitesService actSRV;
     @Autowired
     public ImageService imageService;
+
+
 
 
 
@@ -71,18 +71,42 @@ public class ActualitesRestController {
 
 
     @PostMapping(value = "upload")
-    public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @RequestParam String titreAct) {
+    public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file, @RequestParam int id) {
         // us.uploadImage(username,file.getOriginalFilename());
         String nameImage;
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         nameImage = actSRV.getAlphaNumericString(20) + fileName;
-        Actualite actualite = actSRV.actualitefindByTitreAct(titreAct);
+       // Actualite actualite = actSRV.actualitefindByTitreAct(titreAct);actualitefindLastAct
+         Actualite actualite = actSRV.findActualiteById(id);
         actualite.setImageAct(nameImage);
         actSRV.addActualite(actualite);
 
         return this.imageService.uploadToLocalFileSystem(file, nameImage);
     }
+    @Autowired // ou @inject
+    ActualitesRepository actR;
+    @PostMapping(value = "uploadPdf")
+    public ResponseEntity<String> uploadPdf(@RequestParam MultipartFile file, @RequestParam int id) {
+        String namePdf;
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        namePdf =  fileName;
+        Actualite actualite = actSRV.findActualiteById(id);
+        if (actualite.getPdf1() == null) {
+            actualite.setPdf1(namePdf);
+        } else if (actualite.getPdf2() == null) {
+            actualite.setPdf2(namePdf);
+        } else if (actualite.getPdf3() == null) {
+            actualite.setPdf3(namePdf);
+        } else if (actualite.getPdf4() == null) {
+            actualite.setPdf4(namePdf);
 
+        }
+        actSRV.addActualite(actualite);
+
+        return this.imageService.uploadToLocalFileSystem(file, namePdf);
+    }
+
+   
 
     @GetMapping("findTop3Act")
     List<Actualite> findTop3ActualitesSortedByUpdatedAt() {
