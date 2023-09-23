@@ -25,8 +25,8 @@ public class Reclamation implements Serializable {
     private String nameUserR ;
     private String objetRec;
     @Lob
-    @Column(length = 10000,name="DescriptionRec")//
-    private String DescriptionRec;
+    @Column(length = 10000)//
+    private String descriptionRec;
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date createdAt;

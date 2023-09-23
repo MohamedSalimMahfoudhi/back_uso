@@ -1,6 +1,5 @@
 package com.tn.universite_de_sousse_backend.repository;
 
-import com.tn.universite_de_sousse_backend.entities.Acttableau;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -25,16 +25,14 @@ public class ActualitesRestController {
     @Autowired
     public ImageService imageService;
 
-
-
-
-
-
     @PostMapping("addAct")
     public Actualite addAct(@RequestBody Actualite actualite) {
         return actSRV.addActualite(actualite);
     }
-
+    @PostMapping("email")
+    public void email(@RequestBody Actualite actualite) {
+        actSRV.email(actualite);
+    }
     @PostMapping("addEmail")
     public NewsLetter addEmail(@RequestBody NewsLetter newsLetter) {
         return actSRV.addNewsLetter(newsLetter);

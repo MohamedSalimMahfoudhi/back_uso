@@ -3,7 +3,6 @@ package com.tn.universite_de_sousse_backend.services;
 
 import com.tn.universite_de_sousse_backend.Interfaces.EmailService;
 import com.tn.universite_de_sousse_backend.Interfaces.IactuaalitesService;
-import com.tn.universite_de_sousse_backend.entities.Acttableau;
 import com.tn.universite_de_sousse_backend.entities.Actualite;
 import com.tn.universite_de_sousse_backend.entities.EmailDetails;
 import com.tn.universite_de_sousse_backend.entities.NewsLetter;
@@ -44,6 +43,16 @@ public class ActualitesService implements IactuaalitesService {
 */
 
         return actR.save(actualite);
+    }
+
+    @Override
+    public void email(Actualite actualite) {
+        List<NewsLetter> newsLetters =newsLR.findAll();
+        for (NewsLetter email : newsLetters)
+        {
+            EmailDetails emailDetails = new EmailDetails(email.getEmail(),actualite.getSujetAct(),actualite.getTitreAct(),actualite.getSujetAct());
+            emailService.sendSimpleMail(emailDetails);
+        }
     }
 
     @Override
